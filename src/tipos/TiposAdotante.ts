@@ -1,8 +1,14 @@
 import AdotanteEntity from "../entities/AdotanteEntity";
 
-type TipoRequestBodyAdotante = Omit<AdotanteEntity, "id">
-type TipoResponseBodyAdotante = {
-    data?: Pick<AdotanteEntity, "id" | "nome" | "celular">
+type RequestBodyAdotante = Omit<AdotanteEntity, "id">
+
+type RequestParamsAdotante = { id?: string }
+
+type ResponseBodyAdotante = {
+    data?: 
+       | Pick<AdotanteEntity, "id" | "nome" | "celular">
+       | Pick<AdotanteEntity, "id" | "nome" | "celular">[]
+    error?: unknown
 }
 
-export { TipoRequestBodyAdotante, TipoResponseBodyAdotante }
+export { RequestBodyAdotante, ResponseBodyAdotante, RequestParamsAdotante }
