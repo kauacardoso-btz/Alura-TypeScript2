@@ -1,20 +1,20 @@
 import { Request, Response } from "express";
+import type TipoPet from "../tipos/TipoPet";
 import EnumEspecie from "../enum/EnumEspecie";
 import EnumPorte from "../enum/EnumPorte";
 import PetRepository from "../repositories/PetRepository";
 import PetEntity from "../entities/PetEntity";
-import {
-  TipoRequestBodyPet,
-  TipoRequestParamsPet,
-  TipoResponseBodyPet,
-} from "../tipos/tiposPet";
+let listaDePets: Array<TipoPet> = [];
+
+let id = 0;
+function geraId() {
+  id = id + 1;
+  return id;
+}
 
 export default class PetController {
   constructor(private repository: PetRepository) {}
-  async criaPet(
-    req: Request<TipoRequestParamsPet, {}, TipoRequestBodyPet>,
-    res: Response<TipoResponseBodyPet>
-  ) {
+  async criaPet(req: Request, res: Response) {
     const { adotado, especie, dataDeNascimento, nome, porte } = <PetEntity>(
       req.body
     );
@@ -35,31 +35,16 @@ export default class PetController {
     );
 
     await this.repository.criaPet(novoPet);
-    return res
-      .status(201)
-      .json({ data: { id: novoPet.id, nome, especie, porte } });
+    return res.status(201).json(novoPet);
   }
 
-  async listaPet(
-    req: Request<TipoRequestParamsPet, {}, TipoRequestBodyPet>,
-    res: Response<TipoResponseBodyPet>
-  ) {
+  async listaPet(req: Request, res: Response) {
     const listaDePets = await this.repository.listaPet();
-    const data = listaDePets.map((pet) => {
-      return {
-        id: pet.id,
-        nome: pet.nome,
-        porte: pet.porte,
-        especie: pet.especie,
-      };
-    });
-    return res.status(200).json({ data });
+
+    return res.status(200).json(listaDePets);
   }
 
-  async atualizaPet(
-    req: Request<TipoRequestParamsPet, {}, TipoRequestBodyPet>,
-    res: Response<TipoResponseBodyPet>
-  ) {
+  async atualizaPet(req: Request, res: Response) {
     const { id } = req.params;
     const { success, message } = await this.repository.atualizaPet(
       Number(id),
@@ -67,29 +52,23 @@ export default class PetController {
     );
 
     if (!success) {
-      return res.status(404).json({ error: message });
+      return res.status(404).json({ message });
     }
     return res.sendStatus(204);
   }
 
-  async deletaPet(
-    req: Request<TipoRequestParamsPet, {}, TipoRequestBodyPet>,
-    res: Response<TipoResponseBodyPet>
-  ) {
+  async deletaPet(req: Request, res: Response) {
     const { id } = req.params;
 
     const { success, message } = await this.repository.deletaPet(Number(id));
 
     if (!success) {
-      return res.status(404).json({ error: message });
+      return res.status(404).json({ message });
     }
     return res.sendStatus(204);
   }
 
-  async adotaPet(
-    req: Request<TipoRequestParamsPet, {}, TipoRequestBodyPet>,
-    res: Response<TipoResponseBodyPet>
-  ) {
+  async adotaPet(req: Request, res: Response) {
     const { pet_id, adotante_id } = req.params;
 
     const { success, message } = await this.repository.adotaPet(
@@ -98,7 +77,7 @@ export default class PetController {
     );
 
     if (!success) {
-      return res.status(404).json({ error: message });
+      return res.status(404).json({ message });
     }
     return res.sendStatus(204);
   }
