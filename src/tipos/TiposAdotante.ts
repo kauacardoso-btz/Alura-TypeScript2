@@ -1,6 +1,6 @@
 import AdotanteEntity from "../entities/AdotanteEntity";
 
-type RequestBodyAdotante = Omit<AdotanteEntity, "id">
+type RequestBodyAdotante = Omit<AdotanteEntity, "id" | "pets">
 
 type RequestParamsAdotante = { id?: string }
 
