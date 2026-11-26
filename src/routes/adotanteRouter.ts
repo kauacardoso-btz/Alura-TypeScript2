@@ -2,13 +2,17 @@ import express from "express";
 import { AppDataSource } from "../config/dataSource";
 import AdotanteController from "../controller/AdotanteController";
 import AdotanteRepository from "../repositories/AdotanteRepository";
+import { RequestHandler } from "express-serve-static-core";
+import { middlewareValidadorBodyAdotante } from "../middleware/validadores/adotanteRequestBody";
 const router = express.Router();
 const adotanteRepository = new AdotanteRepository(
   AppDataSource.getRepository("AdotanteEntity")
 );
 const adotanteController = new AdotanteController(adotanteRepository);
+const validateBody: RequestHandler = (req, res, next) =>
+  middlewareValidadorBodyAdotante(req, res, next);
 
-router.post("/", (req, res) => adotanteController.criaAdotante(req, res));
+router.post("/", validateBody, (req, res) => adotanteController.criaAdotante(req, res));
 
 router.get("/", (req, res) => adotanteController.listaAdotantes(req, res));
 
