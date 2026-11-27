@@ -12,7 +12,6 @@ type ResponseBodyPet = {
     data?: 
        | Pick<PetEntity, "id" | "nome" | "porte" | "especie">
        | Pick<PetEntity, "id" | "nome" | "porte" | "especie">[]
-    error?: unknown
 }
 
 export { RequestBodyPet, ResponseBodyPet, RequestParamsPet }
