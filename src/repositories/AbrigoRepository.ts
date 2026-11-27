@@ -11,9 +11,15 @@ export default class AbrigoRepository implements InterfaceAbrigoRepository {
     private async existeAbrigoComCelular(celular: string): Promise<boolean> {
         return !!(await this.repository.findOne({ where: { celular } }));
     }
+    private async existeAbrigoComEmail(email: string): Promise<boolean> {
+        return !!(await this.repository.findOne({ where: { email } }));
+    }
 
     async criaAbrigo(abrigo: AbrigoEntity): Promise<void> {
-        if (await this.existeAbrigoComCelular(abrigo.celular)) {
+        if (
+            (await this.existeAbrigoComCelular(abrigo.celular))
+            || (await this.existeAbrigoComEmail(abrigo.email))
+        ) {
             throw new RequisicaoRuim("Já existe um abrigo com esse celular!");
         }
         await this.repository.save(abrigo);
