@@ -27,7 +27,7 @@ export default class AdotanteRepository implements InterfaceAdotanteRepository {
     const adotanteToUpdate = await this.repository.findOne({ where: { id } });
 
     if (!adotanteToUpdate) {
-      throw new NaoEncontrado('Adotante não encotrado')
+      throw new NaoEncontrado('Adotante não encontrado')
     }
 
     Object.assign(adotanteToUpdate, newData);

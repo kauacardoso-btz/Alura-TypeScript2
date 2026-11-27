@@ -51,7 +51,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Endereco_1 = __importDefault(require("./Endereco"));
 var PetEntity_1 = __importDefault(require("./PetEntity"));
-var SenhaCriptograda_1 = require("../utils/SenhaCriptograda");
+var SenhaCriptografada_1 = require("../utils/SenhaCriptografada");
 var AdotanteEntity = /** @class */ (function () {
     function AdotanteEntity(nome, senha, celular, foto, endereco) {
         this.nome = nome;
@@ -63,7 +63,7 @@ var AdotanteEntity = /** @class */ (function () {
     AdotanteEntity.prototype.criptografaSenha = function (senha) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                this.senha = (0, SenhaCriptograda_1.criarSenhaCriptografada)(this.senha);
+                this.senha = (0, SenhaCriptografada_1.criarSenhaCriptografada)(this.senha);
                 return [2 /*return*/];
             });
         });

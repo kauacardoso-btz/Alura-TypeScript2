@@ -51,7 +51,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var typeorm_1 = require("typeorm");
 var Endereco_1 = __importDefault(require("./Endereco"));
 var PetEntity_1 = __importDefault(require("./PetEntity"));
-var SenhaCriptograda_1 = require("../utils/SenhaCriptograda");
+var SenhaCriptografada_1 = require("../utils/SenhaCriptografada");
 // código omitido
 var AbrigoEntity = /** @class */ (function () {
     function AbrigoEntity(nome, celular, email, senha, endereco) {
@@ -65,7 +65,7 @@ var AbrigoEntity = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 if (this.senha) {
-                    this.senha = (0, SenhaCriptograda_1.criarSenhaCriptografada)(this.senha);
+                    this.senha = (0, SenhaCriptografada_1.criarSenhaCriptografada)(this.senha);
                 }
                 return [2 /*return*/];
             });

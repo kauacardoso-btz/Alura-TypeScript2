@@ -65,7 +65,7 @@ export default class PetRepository implements InterfacePetRepository {
       where: { id: idAdotante },
     });
     if (!adotante) {
-      throw new NaoEncontrado('Adotante nao encontrado')
+      throw new NaoEncontrado('Adotante não encontrado')
     }
 
     pet.adotante = adotante;

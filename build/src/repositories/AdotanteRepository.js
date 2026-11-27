@@ -89,7 +89,7 @@ var AdotanteRepository = /** @class */ (function () {
                     case 1:
                         adotanteToUpdate = _a.sent();
                         if (!adotanteToUpdate) {
-                            throw new ManipulaErros_1.NaoEncontrado('Adotante não encotrado');
+                            throw new ManipulaErros_1.NaoEncontrado('Adotante não encontrado');
                         }
                         Object.assign(adotanteToUpdate, newData);
                         return [4 /*yield*/, this.repository.save(adotanteToUpdate)];

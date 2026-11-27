@@ -120,7 +120,7 @@ var PetRepository = /** @class */ (function () {
                     case 2:
                         adotante = _a.sent();
                         if (!adotante) {
-                            throw new ManipulaErros_1.NaoEncontrado('Adotante nao encontrado');
+                        throw new ManipulaErros_1.NaoEncontrado('Adotante não encontrado');
                         }
                         pet.adotante = adotante;
                         pet.adotado = true;
