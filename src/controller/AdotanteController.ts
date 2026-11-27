@@ -3,6 +3,7 @@ import AdotanteEntity from "../entities/AdotanteEntity";
 import AdotanteRepository from "../repositories/AdotanteRepository";
 import EnderecoEntity from "../entities/Endereco";
 import { RequestParamsAdotante, RequestBodyAdotante, ResponseBodyAdotante } from "../tipos/TiposAdotante";
+import { EnumHttpStatusCode } from "../enum/EnumHttpStatusCode";
 
 
 export default class AdotanteController {
@@ -22,7 +23,7 @@ export default class AdotanteController {
     );
 
     await this.repository.criaAdotante(novoAdotante);
-    return res.status(201).json({ data: { id: novoAdotante.id, nome, celular } });
+    return res.status(EnumHttpStatusCode.CREATED).json({ data: { id: novoAdotante.id, nome, celular } });
   }
 
   async atualizaAdotante(
@@ -35,7 +36,7 @@ export default class AdotanteController {
       req.body as AdotanteEntity
     );
 
-    return res.sendStatus(204);
+    return res.sendStatus(EnumHttpStatusCode.NO_CONTENT);
   }
 
   async listaAdotantes(
@@ -63,7 +64,7 @@ export default class AdotanteController {
       Number(id)
     );
 
-    return res.sendStatus(204);
+    return res.sendStatus(EnumHttpStatusCode.NO_CONTENT);
   }
 
   async atualizaEnderecoAdotante(
@@ -76,6 +77,6 @@ export default class AdotanteController {
       req.body
     );
 
-    return res.sendStatus(204);
+    return res.sendStatus(EnumHttpStatusCode.NO_CONTENT);
   }
 }
