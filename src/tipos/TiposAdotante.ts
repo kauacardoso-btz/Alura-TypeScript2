@@ -5,9 +5,9 @@ type RequestBodyAdotante = Omit<AdotanteEntity, "id" | "pets">
 type RequestParamsAdotante = { id?: string }
 
 type ResponseBodyAdotante = {
-    data?: 
-       | Pick<AdotanteEntity, "id" | "nome" | "celular">
-       | Pick<AdotanteEntity, "id" | "nome" | "celular">[]
+    data?:
+    | Pick<AdotanteEntity, "id" | "nome" | "celular" | "endereco">
+    | Pick<AdotanteEntity, "id" | "nome" | "celular" | "endereco">[]
     error?: unknown
 }
 
