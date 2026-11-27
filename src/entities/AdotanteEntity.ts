@@ -10,7 +10,7 @@ import {
 } from "typeorm";
 import EnderecoEntity from "./Endereco";
 import PetEntity from "./PetEntity";
-import { criarSenhaCriptografada } from "../utils/senhaCriptograda";
+import { criarSenhaCriptografada } from "../utils/SenhaCriptograda";
 
 @Entity()
 export default class AdotanteEntity {
