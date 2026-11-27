@@ -29,5 +29,8 @@
     "typeorm": "^0.3.17",
     "yup": "^1.7.1",
     "yup-locale-pt": "^0.0.9"
+  },
+  "allowScripts": {
+    "sqlite3@5.1.6": true
   }
 }

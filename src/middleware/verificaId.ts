@@ -9,8 +9,10 @@ export const verificaIdMiddleware = (
     const params = { ...req.params }
 
     for (const param in params) {
-        if (Number.isInteger(Number(params[param]))) {
+        if (!Number.isInteger(Number(params[param])) || Number(params[param]) <= 0) {
             throw new RequisicaoRuim(`O parâmetro ${param} deve ser um número inteiro.`)
         }
     }
+
+    next();
 }

@@ -40,12 +40,35 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Endereco_1 = __importDefault(require("../entities/Endereco"));
+var ManipulaErros_1 = require("../utils/ManipulaErros");
 var AdotanteRepository = /** @class */ (function () {
     function AdotanteRepository(repository) {
         this.repository = repository;
     }
+    AdotanteRepository.prototype.verificaCelular = function (celular) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.repository.findOne({ where: { celular: celular } })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     AdotanteRepository.prototype.criaAdotante = function (adotante) {
-        this.repository.save(adotante);
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.verificaCelular(adotante.celular)];
+                    case 1:
+                        if (_a.sent()) {
+                            throw new ManipulaErros_1.RequisicaoRuim("Celular já cadastrado");
+                        }
+                        this.repository.save(adotante);
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     AdotanteRepository.prototype.listaAdotantes = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -59,59 +82,39 @@ var AdotanteRepository = /** @class */ (function () {
     };
     AdotanteRepository.prototype.atualizaAdotante = function (id, newData) {
         return __awaiter(this, void 0, void 0, function () {
-            var adotanteToUpdate, error_1;
+            var adotanteToUpdate;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.repository.findOne({ where: { id: id } })];
+                    case 0: return [4 /*yield*/, this.repository.findOne({ where: { id: id } })];
                     case 1:
                         adotanteToUpdate = _a.sent();
                         if (!adotanteToUpdate) {
-                            return [2 /*return*/, { success: false, message: "Adotante não encontrado" }];
+                            throw new ManipulaErros_1.NaoEncontrado('Adotante não encotrado');
                         }
                         Object.assign(adotanteToUpdate, newData);
                         return [4 /*yield*/, this.repository.save(adotanteToUpdate)];
                     case 2:
                         _a.sent();
                         return [2 /*return*/, { success: true }];
-                    case 3:
-                        error_1 = _a.sent();
-                        console.log(error_1);
-                        return [2 /*return*/, {
-                                success: false,
-                                message: "Ocorreu um erro ao tentar atualizar o adotante.",
-                            }];
-                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
     AdotanteRepository.prototype.deletaAdotante = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var adotanteToRemove, error_2;
+            var adotanteToRemove;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.repository.findOne({ where: { id: id } })];
+                    case 0: return [4 /*yield*/, this.repository.findOne({ where: { id: id } })];
                     case 1:
                         adotanteToRemove = _a.sent();
                         if (!adotanteToRemove) {
-                            return [2 /*return*/, { success: false, message: "Adotante não encontrado" }];
+                            throw new ManipulaErros_1.NaoEncontrado('Adotante não encontrado');
                         }
                         return [4 /*yield*/, this.repository.remove(adotanteToRemove)];
                     case 2:
                         _a.sent();
                         return [2 /*return*/, { success: true }];
-                    case 3:
-                        error_2 = _a.sent();
-                        // Se ocorrer um erro inesperado, você pode retornar uma mensagem genérica ou personalizada.
-                        return [2 /*return*/, {
-                                success: false,
-                                message: "Ocorreu um erro ao tentar excluir o adotante.",
-                            }];
-                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -127,7 +130,7 @@ var AdotanteRepository = /** @class */ (function () {
                     case 1:
                         adotante = _a.sent();
                         if (!adotante) {
-                            return [2 /*return*/, { success: false, message: "Adotante não encontrado" }];
+                            throw new ManipulaErros_1.NaoEncontrado('Adotante não encontrado');
                         }
                         novoEndereco = new Endereco_1.default(endereco.cidade, endereco.estado);
                         adotante.endereco = novoEndereco;

@@ -39,8 +39,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var EnumEspecie_1 = __importDefault(require("../enum/EnumEspecie"));
-var EnumPorte_1 = __importDefault(require("../enum/EnumPorte"));
 var PetEntity_1 = __importDefault(require("../entities/PetEntity"));
 var id = 0;
 function geraId() {
@@ -58,12 +56,6 @@ var PetController = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = (req.body), adotado = _a.adotado, especie = _a.especie, dataDeNascimento = _a.dataDeNascimento, nome = _a.nome, porte = _a.porte;
-                        if (!Object.values(EnumEspecie_1.default).includes(especie)) {
-                            return [2 /*return*/, res.status(400).json({ error: "Especie inválida" })];
-                        }
-                        if (porte && !(porte in EnumPorte_1.default)) {
-                            return [2 /*return*/, res.status(400).json({ error: "Porte inválido" })];
-                        }
                         novoPet = new PetEntity_1.default(nome, especie, dataDeNascimento, adotado, porte);
                         return [4 /*yield*/, this.repository.criaPet(novoPet)];
                     case 1:
@@ -86,7 +78,7 @@ var PetController = /** @class */ (function () {
                                 id: pet.id,
                                 nome: pet.nome,
                                 especie: pet.especie,
-                                porte: pet.porte
+                                porte: pet.porte != null ? pet.porte : undefined
                             };
                         });
                         return [2 /*return*/, res.status(200).json({ data: data })];
@@ -96,17 +88,14 @@ var PetController = /** @class */ (function () {
     };
     PetController.prototype.atualizaPet = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, success, message;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var id;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         id = req.params.id;
                         return [4 /*yield*/, this.repository.atualizaPet(Number(id), req.body)];
                     case 1:
-                        _a = _b.sent(), success = _a.success, message = _a.message;
-                        if (!success) {
-                            return [2 /*return*/, res.status(404).json({ error: message })];
-                        }
+                        _a.sent();
                         return [2 /*return*/, res.sendStatus(204)];
                 }
             });
@@ -114,17 +103,14 @@ var PetController = /** @class */ (function () {
     };
     PetController.prototype.deletaPet = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, success, message;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var id;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         id = req.params.id;
                         return [4 /*yield*/, this.repository.deletaPet(Number(id))];
                     case 1:
-                        _a = _b.sent(), success = _a.success, message = _a.message;
-                        if (!success) {
-                            return [2 /*return*/, res.status(404).json({ error: message })];
-                        }
+                        _a.sent();
                         return [2 /*return*/, res.sendStatus(204)];
                 }
             });
@@ -132,17 +118,14 @@ var PetController = /** @class */ (function () {
     };
     PetController.prototype.adotaPet = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, pet_id, adotante_id, _b, success, message;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var _a, pet_id, adotante_id;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         _a = req.params, pet_id = _a.pet_id, adotante_id = _a.adotante_id;
                         return [4 /*yield*/, this.repository.adotaPet(Number(pet_id), Number(adotante_id))];
                     case 1:
-                        _b = _c.sent(), success = _b.success, message = _b.message;
-                        if (!success) {
-                            return [2 /*return*/, res.status(404).json({ error: message })];
-                        }
+                        _b.sent();
                         return [2 /*return*/, res.sendStatus(204)];
                 }
             });

@@ -62,17 +62,14 @@ var AdotanteController = /** @class */ (function () {
     };
     AdotanteController.prototype.atualizaAdotante = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, success, message;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var id;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         id = req.params.id;
                         return [4 /*yield*/, this.repository.atualizaAdotante(Number(id), req.body)];
                     case 1:
-                        _a = _b.sent(), success = _a.success, message = _a.message;
-                        if (!success) {
-                            return [2 /*return*/, res.status(404).json({ error: message })];
-                        }
+                        _a.sent();
                         return [2 /*return*/, res.sendStatus(204)];
                 }
             });
@@ -90,7 +87,8 @@ var AdotanteController = /** @class */ (function () {
                             return {
                                 id: adotante.id,
                                 nome: adotante.nome,
-                                celular: adotante.celular
+                                celular: adotante.celular,
+                                endereco: adotante.endereco != null ? adotante.endereco : undefined
                             };
                         });
                         return [2 /*return*/, res.json({ data: data })];
@@ -100,17 +98,14 @@ var AdotanteController = /** @class */ (function () {
     };
     AdotanteController.prototype.deletaAdotante = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, success, message;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var id;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         id = req.params.id;
                         return [4 /*yield*/, this.repository.deletaAdotante(Number(id))];
                     case 1:
-                        _a = _b.sent(), success = _a.success, message = _a.message;
-                        if (!success) {
-                            return [2 /*return*/, res.status(404).json({ error: message })];
-                        }
+                        _a.sent();
                         return [2 /*return*/, res.sendStatus(204)];
                 }
             });
@@ -118,17 +113,14 @@ var AdotanteController = /** @class */ (function () {
     };
     AdotanteController.prototype.atualizaEnderecoAdotante = function (req, res) {
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a, success, message;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var id;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         id = req.params.id;
-                        return [4 /*yield*/, this.repository.atualizaEnderecoAdotante(Number(id), req.body.endereco)];
+                        return [4 /*yield*/, this.repository.atualizaEnderecoAdotante(Number(id), req.body)];
                     case 1:
-                        _a = _b.sent(), success = _a.success, message = _a.message;
-                        if (!success) {
-                            return [2 /*return*/, res.status(404).json({ error: message })];
-                        }
+                        _a.sent();
                         return [2 /*return*/, res.sendStatus(204)];
                 }
             });

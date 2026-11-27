@@ -16,6 +16,7 @@ var typeorm_1 = require("typeorm");
 var EnumEspecie_1 = __importDefault(require("../enum/EnumEspecie"));
 var AdotanteEntity_1 = __importDefault(require("./AdotanteEntity"));
 var EnumPorte_1 = __importDefault(require("../enum/EnumPorte"));
+var AbrigoEntity_1 = __importDefault(require("./AbrigoEntity"));
 var PetEntity = /** @class */ (function () {
     function PetEntity(nome, especie, dataDeNascimento, adotado, porte) {
         this.nome = nome;
@@ -52,6 +53,10 @@ var PetEntity = /** @class */ (function () {
         (0, typeorm_1.ManyToOne)(function () { return AdotanteEntity_1.default; }, function (adotante) { return adotante.pets; }),
         __metadata("design:type", AdotanteEntity_1.default)
     ], PetEntity.prototype, "adotante", void 0);
+    __decorate([
+        (0, typeorm_1.ManyToOne)(function () { return AbrigoEntity_1.default; }, function (abrigo) { return abrigo.pets; }),
+        __metadata("design:type", AbrigoEntity_1.default)
+    ], PetEntity.prototype, "abrigo", void 0);
     PetEntity = __decorate([
         (0, typeorm_1.Entity)(),
         __metadata("design:paramtypes", [String, String, Date, Boolean, String])

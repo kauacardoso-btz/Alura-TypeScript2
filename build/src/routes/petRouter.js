@@ -7,14 +7,19 @@ var express_1 = __importDefault(require("express"));
 var PetController_1 = __importDefault(require("../controller/PetController"));
 var PetRepository_1 = __importDefault(require("../repositories/PetRepository"));
 var dataSource_1 = require("../config/dataSource");
+var PetRequestBody_1 = require("../middleware/validadores/PetRequestBody");
+var verificaId_1 = require("../middleware/verificaId");
 var router = express_1.default.Router();
 var petRepository = new PetRepository_1.default(dataSource_1.AppDataSource.getRepository("PetEntity"), dataSource_1.AppDataSource.getRepository("AdotanteEntity"));
 var petController = new PetController_1.default(petRepository);
-router.post("/", function (req, res) { return petController.criaPet(req, res); });
+var validateBodyAdotante = function (req, res, next) {
+    return (0, PetRequestBody_1.middlewareValidadorBodyPet)(req, res, next);
+};
+router.post("/", validateBodyAdotante, function (req, res) { return petController.criaPet(req, res); });
 router.get("/", function (req, res) { return petController.listaPet(req, res); });
-router.put("/:id", function (req, res) { return petController.atualizaPet(req, res); });
-router.delete("/:id", function (req, res) { return petController.deletaPet(req, res); });
-router.put("/:pet_id/:adotante_id", function (req, res) {
+router.put("/:id", verificaId_1.verificaIdMiddleware, function (req, res) { return petController.atualizaPet(req, res); });
+router.delete("/:id", verificaId_1.verificaIdMiddleware, function (req, res) { return petController.deletaPet(req, res); });
+router.put("/:pet_id/:adotante_id", verificaId_1.verificaIdMiddleware, function (req, res) {
     return petController.adotaPet(req, res);
 });
 router.get("/filtro", function (req, res) {

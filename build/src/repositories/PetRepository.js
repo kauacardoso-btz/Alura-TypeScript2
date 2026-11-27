@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var ManipulaErros_1 = require("../utils/ManipulaErros");
 var PetRepository = /** @class */ (function () {
     function PetRepository(petRepository, adotanteRepository) {
         this.petRepository = petRepository;
@@ -65,59 +66,39 @@ var PetRepository = /** @class */ (function () {
     };
     PetRepository.prototype.atualizaPet = function (id, newData) {
         return __awaiter(this, void 0, void 0, function () {
-            var petToUpdate, error_1;
+            var petToUpdate;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.petRepository.findOne({ where: { id: id } })];
+                    case 0: return [4 /*yield*/, this.petRepository.findOne({ where: { id: id } })];
                     case 1:
                         petToUpdate = _a.sent();
                         if (!petToUpdate) {
-                            return [2 /*return*/, { success: false, message: "Pet não encontrado" }];
+                            throw new ManipulaErros_1.NaoEncontrado('Pet não encontrado');
                         }
                         Object.assign(petToUpdate, newData);
                         return [4 /*yield*/, this.petRepository.save(petToUpdate)];
                     case 2:
                         _a.sent();
                         return [2 /*return*/, { success: true }];
-                    case 3:
-                        error_1 = _a.sent();
-                        console.log(error_1);
-                        return [2 /*return*/, {
-                                success: false,
-                                message: "Ocorreu um erro ao tentar atualizar o pet.",
-                            }];
-                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
     PetRepository.prototype.deletaPet = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var petToRemove, error_2;
+            var petToRemove;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        _a.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, this.petRepository.findOne({ where: { id: id } })];
+                    case 0: return [4 /*yield*/, this.petRepository.findOne({ where: { id: id } })];
                     case 1:
                         petToRemove = _a.sent();
                         if (!petToRemove) {
-                            return [2 /*return*/, { success: false, message: "Pet não encontrado" }];
+                            throw new ManipulaErros_1.NaoEncontrado('Pet não encontrado');
                         }
                         return [4 /*yield*/, this.petRepository.remove(petToRemove)];
                     case 2:
                         _a.sent();
                         return [2 /*return*/, { success: true }];
-                    case 3:
-                        error_2 = _a.sent();
-                        // Se ocorrer um erro inesperado, você pode retornar uma mensagem genérica ou personalizada.
-                        return [2 /*return*/, {
-                                success: false,
-                                message: "Ocorreu um erro ao tentar excluir o pet.",
-                            }];
-                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -131,7 +112,7 @@ var PetRepository = /** @class */ (function () {
                     case 1:
                         pet = _a.sent();
                         if (!pet) {
-                            return [2 /*return*/, { success: false, message: "Pet não encontrado" }];
+                            throw new ManipulaErros_1.NaoEncontrado('Pet não encontrado');
                         }
                         return [4 /*yield*/, this.adotanteRepository.findOne({
                                 where: { id: idAdotante },
@@ -139,7 +120,7 @@ var PetRepository = /** @class */ (function () {
                     case 2:
                         adotante = _a.sent();
                         if (!adotante) {
-                            return [2 /*return*/, { success: false, message: "Adotante não encontrado" }];
+                            throw new ManipulaErros_1.NaoEncontrado('Adotante nao encontrado');
                         }
                         pet.adotante = adotante;
                         pet.adotado = true;
