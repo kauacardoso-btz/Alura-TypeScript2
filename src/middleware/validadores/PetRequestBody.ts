@@ -9,7 +9,7 @@ import tratarErroValidacaoYup from "../../utils/TrataValidacaoYup";
 yup.setLocale(pt)
 
 const esquemaBodyPet: yup.ObjectSchema<
-    Omit<RequestBodyPet, "adotante">
+    Omit<RequestBodyPet, "adotante" | "abrigo">
 > = yup.object({
     nome: yup.string().defined().required(),
     especie: yup.string().oneOf(Object.values(EnumEspecie)).defined().required(),
