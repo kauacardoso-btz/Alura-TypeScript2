@@ -12,8 +12,6 @@ export default class AdotanteController {
     res: Response<ResponseBodyAdotante>
   ) {
     const { nome, celular, endereco, foto, senha } = <AdotanteEntity>req.body;
-
-    let bodyValidated: RequestBodyAdotante
     
     const novoAdotante = new AdotanteEntity(
       nome,
